@@ -470,7 +470,7 @@ Collection of independent modules. Currently using:
 Advanced syntax highlighting using AST parsing. Much better than regex-based highlighting.
 
 **Auto-installed parsers:**
-- bash, c, diff, html, lua, luadoc, markdown, markdown_inline, query, vim, vimdoc
+- bash, c, diff, go, html, lua, luadoc, markdown, markdown_inline, query, vim, vimdoc
 
 **Features:**
 - Accurate syntax highlighting
@@ -481,6 +481,34 @@ Advanced syntax highlighting using AST parsing. Much better than regex-based hig
 - `:TSInstall <language>` - Install parser
 - `:TSUpdate` - Update parsers
 - `:TSInstallInfo` - View installed parsers
+
+#### neo-tree.nvim
+
+```lua
+require 'kickstart.plugins.neo-tree'
+```
+
+File explorer with tree view, git status integration, and file operations.
+
+**Keybindings:**
+- `\` - Toggle file tree
+
+**In tree view:**
+- `Enter` - Open file/expand folder
+- `a` - Add new file/directory
+- `d` - Delete
+- `r` - Rename
+- `c` - Copy
+- `x` - Cut
+- `p` - Paste
+- `?` - Show all commands
+
+**Features:**
+- Shows git status (modified, added, deleted files)
+- File icons with Nerd Font
+- Quick file operations
+
+**Note:** Requires Nerd Font in terminal for icons. Use "JetBrainsMono Nerd Font Mono" in iTerm2.
 
 ---
 
@@ -493,9 +521,10 @@ require 'kickstart.plugins.debug',      -- DAP debugging
 require 'kickstart.plugins.indent_line', -- Indent guides
 require 'kickstart.plugins.lint',       -- Linting
 require 'kickstart.plugins.autopairs',  -- Auto-close brackets
-require 'kickstart.plugins.neo-tree',   -- File explorer
 require 'kickstart.plugins.gitsigns',   -- Git integration keymaps
 ```
+
+**Note:** neo-tree is already enabled (see Installed Plugins section above).
 
 ---
 
