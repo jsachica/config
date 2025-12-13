@@ -1,10 +1,10 @@
 # Dotfiles
 
-Personal configuration files for development environment.
+Personal configuration files for development environment. Applicable to OSX. Have not tried in other OS.
 
 ## Contents
 
-- **nvim/** - Neovim configuration (Kickstart-based)
+- **nvim/** - Neovim configuration
 - **tmux/** - Tmux configuration
 
 ## Setup
@@ -23,8 +23,7 @@ ln -s ~/.config/dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf
 ```
 
 ## Neovim
-
-Kickstart.nvim-based configuration with:
+nvim configuration with:
 - LSP support (Go, Lua)
 - Treesitter syntax highlighting
 - Telescope fuzzy finder
@@ -35,5 +34,7 @@ Kickstart.nvim-based configuration with:
 See [nvim/README.md](nvim/README.md) for details.
 
 ## Tmux
-
 Basic tmux configuration.
+
+See [tmux/README.md](tmux/README.md) for details.
+

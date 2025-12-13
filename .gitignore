@@ -4,3 +4,6 @@
 # Tmux plugins and other generated files
 tmux/plugins/
 tmux/resurrect/
+
+CLAUDE.md
+
