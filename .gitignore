@@ -1,7 +1,6 @@
-tags
-test.sh
-.luarc.json
-nvim
+# OS files
+.DS_Store
 
-spell/
-lazy-lock.json
+# Tmux plugins and other generated files
+tmux/plugins/
+tmux/resurrect/
