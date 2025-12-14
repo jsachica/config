@@ -833,11 +833,13 @@ require('lazy').setup({
         end
       end
 
-      -- Show only errors and warnings, hide hints and info (the '󰰎 ++' stuff)
+      -- Show all LSP diagnostics: errors, warnings, info, and hints
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_diagnostics = function()
         local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
         local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+        local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+        local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 
         local parts = {}
         if errors > 0 then
@@ -845,6 +847,12 @@ require('lazy').setup({
         end
         if warnings > 0 then
           table.insert(parts, 'W' .. warnings)
+        end
+        if info > 0 then
+          table.insert(parts, 'I' .. info)
+        end
+        if hints > 0 then
+          table.insert(parts, 'H' .. hints)
         end
 
         if #parts > 0 then
