@@ -1,9 +1,7 @@
-# Neovim Configuration (Kickstart-based)
-
-This configuration is based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) - a well-documented starting point for Neovim that includes LSP, autocompletion, fuzzy finding, and modern Neovim features.
+# Neovim Configuration
+This is the most up to date personal configuration for Neovim on OSX.
 
 ## File Structure
-
 ```
 ~/.config/nvim/
 ├── init.lua                          # Main configuration file (everything is here)
@@ -22,8 +20,6 @@ This configuration is based on [kickstart.nvim](https://github.com/nvim-lua/kick
 │           └── init.lua             # Your custom plugins go here
 └── lazy-lock.json                   # Plugin version lockfile
 ```
-
----
 
 ## Core Settings (`init.lua`)
 
@@ -510,6 +506,40 @@ File explorer with tree view, git status integration, and file operations.
 
 **Note:** Requires Nerd Font in terminal for icons. Use "JetBrainsMono Nerd Font Mono" in iTerm2.
 
+#### lazygit.nvim
+
+```lua
+{ 'kdheepak/lazygit.nvim', lazy = true }
+```
+
+Terminal UI for git inside Neovim. Provides a beautiful interface for all git operations without leaving your editor.
+
+**Keybindings:**
+- `<leader>lg` - Open [L]azy[G]it
+
+**Available Commands:**
+- `:LazyGit` - Open lazygit in a floating terminal
+- `:LazyGitConfig` - Open lazygit configuration file
+- `:LazyGitCurrentFile` - Open lazygit focused on current file history
+- `:LazyGitFilter` - Open lazygit with commit filter
+- `:LazyGitFilterCurrentFile` - Open lazygit filtered to current file
+
+**Features:**
+- Full git workflow in a TUI (add, commit, push, pull, stash, etc.)
+- Visual diff viewer
+- Branch management
+- Merge conflict resolution
+- Interactive rebase
+- Commit history exploration
+- File tree with git status
+
+**Dependencies:**
+- **plenary.nvim** - Lua utility library
+- **lazygit** - Must be installed separately: `brew install lazygit`
+
+**Lazy Loading:**
+This plugin is lazy-loaded and only loads when you run one of the commands or use the `<leader>lg` keybinding, keeping startup time fast.
+
 ---
 
 ## Optional Kickstart Plugins
@@ -532,11 +562,25 @@ require 'kickstart.plugins.gitsigns',   -- Git integration keymaps
 
 Add your own plugins in `lua/custom/plugins/init.lua` or create separate files in that directory.
 
-**Example:**
+The custom plugins import is enabled in `init.lua` with `{ import = 'custom.plugins' }`, which automatically loads all plugins defined in `lua/custom/plugins/*.lua`.
+
+**Currently installed custom plugins:**
+- **lazygit.nvim** - See details in the Installed Plugins section above
+
+**To add more plugins:**
 
 ```lua
 -- lua/custom/plugins/init.lua
 return {
+  -- lazygit.nvim (already installed)
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitCurrentFile', 'LazyGitFilter', 'LazyGitFilterCurrentFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = { { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' } },
+  },
+  -- Add your new plugins here
   {
     'your-username/your-plugin',
     opts = {},
