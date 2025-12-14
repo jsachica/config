@@ -789,15 +789,74 @@ require('lazy').setup({
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
+      -- Use nerd icons for status line
       statusline.setup { use_icons = vim.g.have_nerd_font }
 
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
+      -- Custom function to get file size in human-readable format
+      local function get_file_size()
+        local size = vim.fn.getfsize(vim.fn.expand '%:p')
+        if size <= 0 then
+          return ''
+        end
+        local suffixes = { 'B', 'KB', 'MB', 'GB' }
+        local i = 1
+        while size > 1024 and i < #suffixes do
+          size = size / 1024
+          i = i + 1
+        end
+        return string.format('%.1f%s', size, suffixes[i])
+      end
+
+      -- Customize fileinfo section to show just filetype and file size
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.section_fileinfo = function()
+        local filetype = vim.bo.filetype
+        if filetype == '' then
+          filetype = 'text'
+        end
+        local size = get_file_size()
+        return string.format('%s | %s', filetype, size)
+      end
+
+      -- Customize git section to show branch icon and name (no diff stats like +25 ~4)
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.section_git = function()
+        local head = vim.b.gitsigns_head or vim.g.gitsigns_head or ''
+        if head == '' then
+          return ''
+        end
+        -- Show git icon and branch name
+        if vim.g.have_nerd_font then
+          return ' ' .. head
+        else
+          return 'git:' .. head
+        end
+      end
+
+      -- Show only errors and warnings, hide hints and info (the '󰰎 ++' stuff)
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.section_diagnostics = function()
+        local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+        local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+
+        local parts = {}
+        if errors > 0 then
+          table.insert(parts, 'E' .. errors)
+        end
+        if warnings > 0 then
+          table.insert(parts, 'W' .. warnings)
+        end
+
+        if #parts > 0 then
+          return table.concat(parts, ' ')
+        end
+        return ''
+      end
+
+      -- Customize location section to show current line:column / total lines
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
-        return '%2l:%-2v'
+        return '%2l:%-2v/%L'
       end
 
       -- ... and there is more!
