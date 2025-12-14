@@ -830,13 +830,6 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
-  -- require 'custom.plugins.debug',
-  -- require 'custom.plugins.indent_line',
-  -- require 'custom.plugins.lint',
-  --  require 'custom.plugins.autopairs',
-  --  require 'custom.plugins.neo-tree',
-  --  require 'custom.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
   --  Import custom plugins from `lua/custom/plugins/*.lua`.
   { import = 'custom.plugins' },
   --
